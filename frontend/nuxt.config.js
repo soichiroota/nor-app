@@ -40,6 +40,7 @@ export default {
   */
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/toast',
   ],
   /*
   ** Build configuration
@@ -70,5 +71,9 @@ export default {
         }
       }
     }
-  }
+  },
+  toast: {
+    position: 'top-center',
+    duration: 3000
+  },
 }
