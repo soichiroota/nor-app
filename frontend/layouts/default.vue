@@ -11,7 +11,9 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        <nuxt />
+        <v-main>
+          <nuxt />
+        </v-main>
       </v-container>
     </v-content>
     <v-footer app>

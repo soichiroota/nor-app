@@ -1,22 +1,13 @@
 <template>
-  <v-main>
-    <v-container>
-      <div>
-        <h1 class="title">
-          NoR-app
-        </h1>
-        <h2 class="subtitle">
-          {{ subTitle }}
-        </h2>
-        <button @click="getSomething">
-          タスク取得
-        </button>
-        <ul v-for=" task in tasks" :key="task.id">
-          <li style="text-align: left;">{{ task.title }}</li>
-        </ul>
-      </div>
-    </v-container>
-  </v-main>
+  <v-container>
+    <div>
+      <h1>Contact</h1>
+      <p>
+        Contact the Ruby on Rails Tutorial about the sample app at the
+        <a href="https://railstutorial.jp/contact">contact page</a>.
+      </p>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -24,7 +15,7 @@ export default {
   data() {
     return {
       subTitle: 'Zenn is good service!!',
-      tasks: []
+      tasks: [],
     }
   },
   methods: {
@@ -35,8 +26,7 @@ export default {
   },
   head() {
     return {
-      title: 'Ruby on Rails Tutorial Sample App',
-      titleTemplate: ''
+      title: 'Contact'
     }
   }
 }
