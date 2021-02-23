@@ -1,11 +1,8 @@
 <template>
   <v-container>
     <div>
-      <h1>Contact</h1>
-      <p>
-        Contact the Ruby on Rails Tutorial about the sample app at the
-        <a href="https://railstutorial.jp/contact">contact page</a>.
-      </p>
+      <h1>Sign up</h1>
+      <p>This will be a signup page for new users.</p>
     </div>
   </v-container>
 </template>
@@ -26,7 +23,7 @@ export default {
   },
   head() {
     return {
-      title: 'Contact'
+      title: 'Sign up'
     }
   }
 }
