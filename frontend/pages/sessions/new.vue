@@ -26,6 +26,12 @@
               hint="At least 6 characters"
               @click:append="showPassword = !showPassword"
               ></v-text-field>
+              <v-checkbox
+                v-model="idSaving"
+                label="Remember me on this computer"
+                @change="$v.idSaving.$touch()"
+                @blur="$v.idSaving.$touch()"
+              ></v-checkbox>
 
               <v-btn
               class="mr-4"
@@ -48,12 +54,16 @@
   import { validationMixin } from 'vuelidate'
   import { required, email } from 'vuelidate/lib/validators'
 
-
   export default {
     mixins: [validationMixin],
     validations: {
       email: { required, email },
       password: { required },
+      idSaving: {
+        checked (val) {
+          return val
+        },
+      },
     },
     components: {
       Errors
@@ -72,7 +82,7 @@
         email: '',
         password: '',
         showPassword: false,
-        idSaving: true
+        idSaving: false
       }
     },
     computed: {
@@ -96,6 +106,7 @@
         this.$v.$reset()
         this.email = ''
         this.password = ''
+        this.idSaving = false
       },
       getSignInIds() {
         this.email = localStorage.email
@@ -103,11 +114,6 @@
       setSignInIds() {
         if (this.idSaving) {
           localStorage.setItem('email', this.email)
-        }
-      },
-      clearStrageId() {
-        if (!this.idSaving) {
-          localStorage.removeItem('email')
         }
       },
       async login() {
