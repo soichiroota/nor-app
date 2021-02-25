@@ -15,21 +15,19 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      subTitle: 'Zenn is good service!!',
-      tasks: [],
-      gravatarUrl: ''
+      gravatarUrlSize: 80,
     }
   },
   methods: {
-    async getSomething() {
-      const response = await this.$axios.$get('/api/v1/tasks')
-      this.tasks = JSON.parse(response.tasks)
-    },
-    getGravatarUrl(size=80) {
-      const crypto = require('crypto')
-      const gravatarId = crypto.createHash('md5').update(this.user.email.toLowerCase()).digest('hex')
-      this.gravatarUrl = `https://secure.gravatar.com/avatar/${gravatarId}?s=${size}`
-    },
+    gravatarUrl: function () {
+      if (this.user.email) {
+        const crypto = require('crypto')
+        const gravatarId = crypto.createHash('md5').update(this.user.email.toLowerCase()).digest('hex')
+        return `https://secure.gravatar.com/avatar/${gravatarId}?s=${this.gravatarUrlSize}`
+      } else {
+        ''
+      }
+    }
   },
   head() {
     return {
@@ -39,11 +37,11 @@ export default {
   computed: {
     ...mapGetters({
       user: 'users/user',
-    })
+      currentUser: 'auth/currentUser'
+    }),
   },
-  async fetch({ store, params, redirect }) {
-    await store.dispatch('users/fetchUser', params.id)
-    this.getGravatarUrl()
+  async fetch() {
+    await this.$store.dispatch('users/fetchUser', this.$route.params.id)
   },
   mounted() {
   },

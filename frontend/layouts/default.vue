@@ -3,7 +3,13 @@
     <Header/>
     <v-container>
       <v-main>
-        <nuxt />
+        <div v-if="currentUser">
+          <!-- クエリを変えただけのリンクを辿った時に再レンダリング -->
+          <nuxt :nuxt-child-key="$route.fullPath" />
+        </div>
+        <div v-else >
+          <nuxt/>
+        </div>
       </v-main>
     </v-container>
     <Footer/>
@@ -94,11 +100,17 @@ html {
 <script>
 import Header from '~/components/layouts/Header.vue'
 import Footer from '~/components/layouts/Footer.vue'
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
       Header,
       Footer,
+    },
+    computed: {
+      ...mapGetters({
+        currentUser: 'auth/currentUser'
+      }),
     },
 }
 </script>
