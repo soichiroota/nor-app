@@ -45,7 +45,7 @@
               :rules="[rules.required, rules.min]"
               :type="showPasswordConfirmation ? 'text' : 'password'"
               name="input-password-confirmation"
-              hint="At least 8 characters"
+              hint="At least 6 characters"
               @click:append="showPasswordConfirmation = !showPasswordConfirmation"
               ></v-text-field>
 
@@ -91,7 +91,7 @@
       return {
         rules: {
           required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
+          min: v => v.length >= 6 || 'Min 6 characters',
         },
         name: '',
         email: '',

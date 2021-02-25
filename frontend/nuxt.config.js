@@ -28,6 +28,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/axios',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,6 +42,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/toast',
+    ['cookie-universal-nuxt', { parseJSON: false }],
   ],
   /*
   ** Build configuration
@@ -52,8 +54,9 @@ export default {
     extend (config, ctx) {
     }
   },
-  axios: {
-    baseURL: process.env.NODE_ENV === "production" ? "https://backend.hibriiiiidge.com" : "http://localhost:5000"
+  axios: { 
+    baseURL: process.env.API_URL,
+    browserBaseURL: process.env.NODE_ENV === "production" ? "https://backend.hibriiiiidge.com" : "http://localhost:5000"
   },
   vuetify: {
     customVariables: [],
@@ -75,5 +78,8 @@ export default {
   toast: {
     position: 'top-center',
     duration: 3000
+  },
+  router: {
+    middleware: ['authentication']
   },
 }

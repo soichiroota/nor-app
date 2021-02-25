@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       get :health_check, to: 'health_check#index'
       post '/signup',  to: 'users#create'
       resources :users
+      post   '/login',   to: 'sessions#create'
+      get 'token_current_user', to: 'sessions#token_current_user'
+      get 'authencity_token', to: 'authencity_tokens#create'
     end
   end
 end
