@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_045452) do
+ActiveRecord::Schema.define(version: 2021_02_24_220240) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title", null: false
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2021_02_23_045452) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.string "token"
+    t.datetime "token_expired_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

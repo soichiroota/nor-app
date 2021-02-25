@@ -40,5 +40,10 @@ module App
     # ここに config.hosts << ".hibriiiidge.com" でも失敗する
     # config.hosts << "app"
     # と思ったけど、config.hosts 自体書かなくて良さそう？
+
+    config.middleware.use ActionDispatch::Flash
+
+    config.autoload_paths += %W(#{Rails.root}/lib/sessions)
+    config.eager_load_paths += %W(#{Rails.root}/lib/sessions)
   end
 end

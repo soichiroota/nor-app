@@ -22,35 +22,87 @@
         </v-btn>
       </a>
 
-      <a href="#">
-        <v-btn icon>
-          <v-icon>mdi-login</v-icon>
-        </v-btn>
-      </a>
-
-      <v-menu
-        left
-        bottom
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon>mdi-dots-vertical</v-icon>
+      <div v-if="currentUser">
+        <a href="#">
+          <v-btn icon>
+            <v-icon>mdi-account-group</v-icon>  
           </v-btn>
-        </template>
+        </a>
+        <v-menu
+          left
+          bottom
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
 
-        <v-list>
-          <v-list-item
-            v-for="n in 5"
-            :key="n"
+          <v-list>
+            <v-list-item
+              @click="clickProfile"
+            >
+              <v-list-item-title>
+                Profile
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item
             @click="() => {}"
-          >
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+            >
+              <v-list-item-title>
+                Settings
+              </v-list-item-title>
+            </v-list-item>
+            <v-divider></v-divider>
+            <v-list-item
+            @click="logout"
+            >
+              <v-list-item-title>
+                Log out
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+       <div v-else >
+         <a href="/sessions/new">
+          <v-btn icon>
+            <v-icon>mdi-login</v-icon>
+          </v-btn>
+        </a>
+      </div>
     </v-app-bar>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+export default {
+    computed: {
+      ...mapGetters({
+        currentUser: 'auth/currentUser'
+      }),
+      hasCookiesToken: function() {
+        return !!this.$cookies.get('token') && !!this.currentUser
+      }
+    },
+    methods: {
+      clickProfile () {
+        this.$router.push(`/users/${this.currentUser.id}/show`)
+      },
+      async logout() {
+        try {
+          this.$cookies.remove('token')
+          // this.$router.push('/')だとlayout/default.vueのmethodsが実行されず
+          // logoutボタンがsign inページでも残るのでlocation.replaceを使っています
+          location.replace('/sessions/new')
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    }
+}
+</script>
