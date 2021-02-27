@@ -1,25 +1,25 @@
 <template>
   <v-app>
-    <Header/>
+    <Header />
     <v-container>
       <v-main>
         <div v-if="currentUser">
           <!-- クエリを変えただけのリンクを辿った時に再レンダリング -->
           <nuxt :nuxt-child-key="$route.fullPath" />
         </div>
-        <div v-else >
-          <nuxt/>
+        <div v-else>
+          <nuxt />
         </div>
       </v-main>
     </v-container>
-    <Footer/>
+    <Footer />
   </v-app>
 </template>
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -75,8 +75,8 @@ html {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
@@ -98,19 +98,19 @@ html {
 </style>
 
 <script>
-import Header from '~/components/layouts/Header.vue'
-import Footer from '~/components/layouts/Footer.vue'
-import { mapGetters } from 'vuex'
+import Header from "~/components/layouts/Header.vue";
+import Footer from "~/components/layouts/Footer.vue";
+import { mapGetters } from "vuex";
 
 export default {
-    components: {
-      Header,
-      Footer,
-    },
-    computed: {
-      ...mapGetters({
-        currentUser: 'auth/currentUser'
-      }),
-    },
-}
+  components: {
+    Header,
+    Footer
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: "auth/currentUser"
+    })
+  }
+};
 </script>
