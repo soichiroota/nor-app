@@ -1,12 +1,8 @@
 <template>
-  <v-container>
-    <div>
-      <h1>
-        Update your profile
-        <img :src="gravatarUrl" :alt="user.name" class="gravatar"/>
-        {{ user.name }}
-      </h1>
-<v-row>
+<div>
+  <Errors :errors="errors"/>
+  <h1>Update your profile</h1>
+  <v-row>
       <v-col>
           <form @submit.prevent="submit">
               <v-text-field
@@ -63,55 +59,140 @@
               clear
               </v-btn>
           </form>
+        <div class="gravatar_edit">
+        <img :src="gravatarUrl" :alt="user.name" class="gravatar"/>
+        <a href="http://gravatar.com/emails" target="_blank">change</a>
+        </div>
       </v-col>
   </v-row>
-
-    <div class="gravatar_edit">
-      <img :src="gravatarUrl" :alt="user.name" class="gravatar"/>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
-    </div>
-  </div>
-  </v-container>
+</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
+  import Errors from '@/components/shared/ErrorMessages'
+  import { validationMixin } from 'vuelidate'
+  import { required, maxLength, email } from 'vuelidate/lib/validators'
 
-export default {
-  data() {
-    return {
-      gravatarUrlSize: 80,
-    }
-  },
-  methods: {
-    gravatarUrl: function () {
-      if (this.user.email) {
-        const crypto = require('crypto')
-        const gravatarId = crypto.createHash('md5').update(this.user.email.toLowerCase()).digest('hex')
-        return `https://secure.gravatar.com/avatar/${gravatarId}?s=${this.gravatarUrlSize}`
-      } else {
-        ''
+  export default {
+    mixins: [validationMixin],
+    validations: {
+      name: { required, maxLength: maxLength(50) },
+      email: { required, email },
+      password: { required },
+      passwordConfirmation: { required },
+    },
+    components: {
+      Errors
+    },
+    asyncData() {
+      return {
+        errors: [],
       }
+    },
+    data () {
+      return {
+        rules: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 6 || 'Min 6 characters',
+        },
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+        showPassword: false,
+        showPasswordConfirmation: false,
+      }
+    },
+    computed: {
+      ...mapGetters({
+        user: 'users/user',
+        currentUser: 'auth/currentUser'
+      }),
+      nameErrors () {
+        const errors = []
+        if (!this.$v.name.$dirty) return errors
+        !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
+        !this.$v.name.required && errors.push('Name is required.')
+        return errors
+      },
+      emailErrors () {
+        const errors = []
+        if (!this.$v.email.$dirty) return errors
+        !this.$v.email.email && errors.push('Must be valid e-mail')
+        !this.$v.email.required && errors.push('E-mail is required')
+        return errors
+      },
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.password && errors.push('Must be valid password')
+        !this.$v.password.required && errors.push('Password is required')
+        return errors
+      },
+      passwordConfirmationErrors () {
+        const errors = []
+        if (!this.$v.passwordConfirmation.$dirty) return errors
+        !this.$v.passwordConfirmation.passwordConfirmation && errors.push('Must be valid password confirmation')
+        !this.$v.Confirmation.required && errors.push('Password confirmation is required')
+        return errors
+      },
+      gravatarUrl: function () {
+        if (this.user.email) {
+          const crypto = require('crypto')
+          const gravatarId = crypto.createHash('md5').update(this.user.email.toLowerCase()).digest('hex')
+          return `https://secure.gravatar.com/avatar/${gravatarId}?s=${this.gravatarUrlSize}`
+        } else {
+          return ''
+        }
+      },
+    },
+    methods: {
+      async submit() {
+        this.$v.$touch()
+        const params = {
+          user: {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.passwordConfirmation
+          }
+        }
+        await this.updateUser(params)
+      },
+      clear () {
+        this.$v.$reset()
+        this.name = ''
+        this.email = ''
+        this.password = ''
+        this.passwordConfirmation = ''
+      },
+      async updateUser(params) {
+        const endpoint = `/api/v1/users/${this.user.id}`
+        const res = await this.$axios.$put(endpoint, params)
+        if (res.errors) {
+          this.errors = res.errors
+        } else {
+          this.$router.push(`/users/${this.user.id}/show`)
+            this.$toast.success('Profile updated')
+        }
+      }
+    },
+    head() {
+        return {
+            title: "Edit user"
+        }
+    },
+    async fetch() {
+      await this.$store.dispatch('users/fetchUser', this.$route.params.id)
+    },
+    mounted () {
+      if (this.currentUser && this.user.id !== this.currentUser.id) {
+        this.$router.push('/sessions/new')
+       } else {
+          this.name = this.user.name
+          this.email = this.user.email
+       }
     }
-  },
-  head() {
-    return {
-      title: "Edit user"
-    }
-  },
-  computed: {
-    ...mapGetters({
-      user: 'users/user',
-      currentUser: 'auth/currentUser'
-    }),
-  },
-  async fetch() {
-    await this.$store.dispatch('users/fetchUser', this.$route.params.id)
-  },
-  mounted() {
-  },
-}
+  }
 </script>
-
-<style>
-</style>

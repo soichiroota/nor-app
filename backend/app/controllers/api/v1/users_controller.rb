@@ -1,21 +1,43 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :set_user, only: %i[show]
+      skip_before_action :authenticate!, only: [:show, :create]
+      skip_before_action :verify_authenticity_token, only: [:show, :create]
+      before_action :set_user, only: [:show, :update, :destroy]
+
+      def index
+        authorize User
+        @users = User.paginate(page: params[:page], per_page: 30)
+        render json: { users: @users.to_json, pages: @users.total_pages }
+      end
 
       def show
-        authorize @user
         render json: @user.to_json
       end
 
       def create
-        authorize User
         @user = User.new(user_params)
         if @user.save
           render json: @user.to_json
         else
           render json: { errors: @user.errors.full_messages }
         end
+      end
+
+      def update
+        authorize @user
+        if @user.update_attributes(user_params)
+          render json: @user.to_json
+        else
+          render json: { errors: @user.errors.full_messages }
+        end
+      end
+
+      def destroy
+        authorize @user
+        render json: { status: :unprocessable_entity } unless current_user.admin?
+        @user.destroy
+        render json: @user.to_json 
       end
 
       private

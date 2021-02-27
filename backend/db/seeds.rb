@@ -7,6 +7,20 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 if User.all.blank?
     User.transaction do
-      user = User.create!(name: 'yamada', email: 'yamada@gmail.com', password: 'password1')
+      User.create!(name:  "Example User",
+             email: "example@railstutorial.org",
+             password:              "foobar0",
+             password_confirmation: "foobar0",
+             admin: true)
+
+      99.times do |n|
+        name  = Faker::Name.name
+        email = "example-#{n+1}@railstutorial.org"
+        password = "password0"
+        User.create!(name:  name,
+                    email: email,
+                    password:              password,
+                    password_confirmation: password)
+      end
     end
 end

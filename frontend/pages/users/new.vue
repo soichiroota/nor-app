@@ -70,7 +70,6 @@
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
 
-
   export default {
     mixins: [validationMixin],
     validations: {
@@ -156,10 +155,13 @@
       async createUser(params) {
         const endpoint = '/api/v1/signup'
         const res = await this.$axios.$post(endpoint, params)
-
         if (res.errors) {
           this.errors = res.errors
         } else {
+          await this.$store.dispatch('auth/signIn', {
+            email: params.user.email,
+            password: params.user.password 
+          })
           this.$router.push(`/users/${res.id}/show`)
           this.$toast.success('Welcome to the Sample App!')
         }

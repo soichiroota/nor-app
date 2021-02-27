@@ -23,7 +23,7 @@
       </a>
 
       <div v-if="currentUser">
-        <a href="#">
+        <a href="/users">
           <v-btn icon>
             <v-icon>mdi-account-group</v-icon>  
           </v-btn>
@@ -51,7 +51,7 @@
               </v-list-item-title>
             </v-list-item>
             <v-list-item
-            @click="() => {}"
+            @click="clickSettings"
             >
               <v-list-item-title>
                 Settings
@@ -92,6 +92,9 @@ export default {
     methods: {
       clickProfile () {
         this.$router.push(`/users/${this.currentUser.id}/show`)
+      },
+      clickSettings () {
+        this.$router.push(`/users/${this.currentUser.id}/edit`)
       },
       async logout() {
         try {

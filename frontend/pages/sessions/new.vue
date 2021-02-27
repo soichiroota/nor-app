@@ -126,7 +126,11 @@
           const res = await this.$store.dispatch('auth/signIn', { ...params })
           // this.$router.push('/dashboard/')だとlayout/default.vueのmethodsが実行されず
           // sign_inボタンがsign in後のページでも残るのでlocation.replaceを使っています
-          location.replace(`/users/${res.user.id}/show`)
+          if (localStorage.forwardingPath) {
+            location.replace(this.$cookies.get('forwardingPath'))
+          } else {
+            location.replace(`/users/${res.user.id}/show`)
+          }
         } catch (e) {
           this.errors = []
           if (e.response && e.response.status === 401) {

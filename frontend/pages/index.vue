@@ -1,6 +1,4 @@
 <template>
-  <v-main>
-    <v-container>
       <div>
         <h1 class="title">
           NoR-app
@@ -15,8 +13,6 @@
           <li style="text-align: left;">{{ task.title }}</li>
         </ul>
       </div>
-    </v-container>
-  </v-main>
 </template>
 
 <script>

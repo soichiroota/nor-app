@@ -5,15 +5,19 @@ export default async ({ app, route, redirect, store }) => {
     app.$cookies.remove('token')
   }
 
-  const publicPaths = [
-    '/',
-    '/users/new',
-    '/signup',
-    '/home',
-    '/help',
-    '/about',
-    '/contact',
-  ]
+  function isPublicPath(path) {
+    const publicPaths = [
+      '/',
+      '/users/new',
+      '/signup',
+      '/home',
+      '/help',
+      '/about',
+      '/contact',
+    ]
+    const usersShowRe = /^\/users\/\d+\/show$/g
+    return publicPaths.includes(path) || usersShowRe.test(path)
+  }
 
   const token = app.$cookies.get('token')
   // token があって sign in へアクセスされたときは dashboard へ
@@ -24,11 +28,12 @@ export default async ({ app, route, redirect, store }) => {
   }
 
   // cookie に何もなく sign in へ遷移するときは何もしない
-  if (!token && route.path == '/sessions/new') {
+  if (!token && (route.path == '/sessions/new' || isPublicPath(route.path))) {
     return
   }
 
-  if (process.server && !token && !publicPaths.includes(route.path)) {
+  app.$cookies.set('forwardingPath', route.path)
+  if (process.server && !token && !isPublicPath(route.path)) {
     redirect('/sessions/new')
     return
   }

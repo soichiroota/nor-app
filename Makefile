@@ -43,6 +43,8 @@ db-seed:
 	docker-compose exec backend bundle exec rails db:seed
 db-reset:
 	docker-compose exec backend bundle exec rails db:drop db:create db:migrate db:seed
+db-migrate-reset:
+	docker-compose exec backend bundle exec rails db:migrate:reset
 
 # rails command
 rc:
