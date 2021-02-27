@@ -4,10 +4,15 @@
       <h1>Help</h1>
       <p>
         Get help on the Ruby on Rails Tutorial at the
-        <a href="https://railstutorial.jp/help">Rails Tutorial help page</a>.
+        <a href="https://railstutorial.jp/help">Rails Tutorial help page</a>
+        .
+        <br />
         To get help on this sample app, see the
-        <a href="https://railstutorial.jp/#ebook"><em>Ruby on Rails Tutorial</em>
-        book</a>.
+        <a href="https://railstutorial.jp/#ebook">
+          <em>Ruby on Rails Tutorial </em>
+          book
+        </a>
+        .
       </p>
     </div>
   </v-container>
@@ -17,11 +22,10 @@
 export default {
   head() {
     return {
-      title: 'Help'
-    }
+      title: "Help"
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

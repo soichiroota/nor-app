@@ -2,7 +2,7 @@
   <v-container>
     <div>
       <h1>
-        <img :src="gravatarUrl" :alt="userName" class="gravatar"/>
+        <img :src="gravatarUrl" :alt="userName" class="gravatar" />
         {{ userName }}
       </h1>
     </div>
@@ -10,55 +10,56 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      gravatarUrlSize: 80,
-    }
+      gravatarUrlSize: 80
+    };
   },
-  methods: {
-  },
+  methods: {},
   head() {
     return {
-      title: this.title 
-    }
+      title: this.title
+    };
   },
   computed: {
     ...mapGetters({
-      user: 'users/user',
-      currentUser: 'auth/currentUser'
+      user: "users/user",
+      currentUser: "auth/currentUser"
     }),
-    gravatarUrl: function () {
+    gravatarUrl: function() {
       if (this.user.email) {
-        const crypto = require('crypto')
-        const gravatarId = crypto.createHash('md5').update(this.user.email.toLowerCase()).digest('hex')
-        return `https://secure.gravatar.com/avatar/${gravatarId}?s=${this.gravatarUrlSize}`
+        const crypto = require("crypto");
+        const gravatarId = crypto
+          .createHash("md5")
+          .update(this.user.email.toLowerCase())
+          .digest("hex");
+        return `https://secure.gravatar.com/avatar/${gravatarId}?s=${this.gravatarUrlSize}`;
       } else {
-        return ''
+        return "";
       }
     },
-    title: function () {
+    title: function() {
       if (this.user) {
-        return this.user.name
+        return this.user.name;
       } else {
-        return ''
+        return "";
       }
     },
-    userName: function () {
+    userName: function() {
       if (this.user) {
-        return this.user.name
+        return this.user.name;
       } else {
-        return ''
+        return "";
       }
     }
   },
   async fetch() {
-    await this.$store.dispatch('users/fetchUser', this.$route.params.id)
-  },
-}
+    await this.$store.dispatch("users/fetchUser", this.$route.params.id);
+  }
+};
 </script>
 
-<style>
-</style>
+<style></style>
