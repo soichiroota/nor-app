@@ -1,12 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar
-      fixed
-      app
-      color="primary"
-      class="white--text"
-    >
-      <v-app-bar-nav-icon class="white--text"/>
+    <v-app-bar fixed
+app color="primary" class="white--text">
+      <v-app-bar-nav-icon class="white--text" />
       <v-toolbar-title v-text="title" />
     </v-app-bar>
     <v-content>
@@ -14,15 +10,14 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer app>
-    </v-footer>
+    <v-footer app />
   </v-app>
 </template>
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

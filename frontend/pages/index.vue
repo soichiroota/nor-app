@@ -11,8 +11,11 @@
         <button @click="getSomething">
           タスク取得
         </button>
-        <ul v-for=" task in tasks" :key="task.id">
-          <li style="text-align: left;">{{ task.title }}</li>
+        <ul v-for="task in tasks"
+:key="task.id">
+          <li style="text-align: left;">
+            {{ task.title }}
+          </li>
         </ul>
       </div>
     </v-container>
@@ -23,17 +26,17 @@
 export default {
   data() {
     return {
-      subTitle: 'Zenn is good service!!',
+      subTitle: "Zenn is good service!!",
       tasks: []
-    }
+    };
   },
   methods: {
     async getSomething() {
-      const response = await this.$axios.$get('/api/v1/tasks')
-      this.tasks = JSON.parse(response.tasks)
+      const response = await this.$axios.$get("/api/v1/tasks");
+      this.tasks = JSON.parse(response.tasks);
     }
-  },
-}
+  }
+};
 </script>
 
 <style>
@@ -47,8 +50,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
