@@ -6,10 +6,18 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
     outcome = User::SignIn.run(params)
     if outcome.valid?
       @user = outcome.result
+      if user.activated?
+        message = "User: #{@user.id} has successfully logged in."
+        Rails.logger.info(message)
 
-      Rails.logger.info("User: #{@user.id} has successfully logged in.")
-
-      render json: { token: @user.token, user: user_secure_column }
+        render json: {
+          token: @user.token,
+          user: user_secure_column}
+      else
+        render json: {
+          token: nil,
+          user: user_secure_column}
+      end
     else
       render json: { messages: outcome.errors.full_messages }, status: :unauthorized
     end

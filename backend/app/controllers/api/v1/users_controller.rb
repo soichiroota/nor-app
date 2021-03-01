@@ -18,6 +18,7 @@ module Api
       def create
         @user = User.new(user_params)
         if @user.save
+          @user.send_activation_email(params[:url], true)
           render json: @user.to_json
         else
           render json: { errors: @user.errors.full_messages }
