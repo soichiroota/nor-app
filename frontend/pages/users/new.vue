@@ -139,7 +139,8 @@ export default {
           name: this.name,
           email: this.email,
           password: this.password,
-          password_confirmation: this.passwordConfirmation
+          password_confirmation: this.passwordConfirmation,
+          url: window.location.origin
         }
       };
       await this.createUser(params);
@@ -161,8 +162,8 @@ export default {
           email: params.user.email,
           password: params.user.password
         });
-        this.$router.push(`/users/${res.id}/show`);
-        this.$toast.success("Welcome to the Sample App!");
+        this.$toast.info("Please check your email to activate your account.");
+        this.$router.push("/home");
       }
     }
   },

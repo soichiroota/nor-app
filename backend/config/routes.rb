@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/new'
+  resources :account_activations, only: [:edit]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post   '/login',   to: 'sessions#create'
       get 'token_current_user', to: 'sessions#token_current_user'
       get 'authencity_token', to: 'authencity_tokens#create'
+      resources :account_activations, only: [:edit]
     end
   end
 end

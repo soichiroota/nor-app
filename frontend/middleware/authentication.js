@@ -15,7 +15,12 @@ export default async ({ app, route, redirect, store }) => {
       "/contact"
     ];
     const usersShowRe = /^\/users\/\d+\/show$/g;
-    return publicPaths.includes(path) || usersShowRe.test(path);
+    const accountActivationsEditRe = /^\/accountActivations\/.+\/[0-9a-zA-Z]+\/edit/g;
+    return (
+      publicPaths.includes(path) ||
+      usersShowRe.test(path) ||
+      accountActivationsEditRe.test(path)
+    );
   }
 
   const token = app.$cookies.get("token");

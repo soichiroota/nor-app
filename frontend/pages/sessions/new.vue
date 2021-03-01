@@ -33,7 +33,7 @@
             @blur="$v.idSaving.$touch()"
           />
 
-          <v-btn class="mr-4" @click="login">
+          <v-btn class="mr-4" click="login">
             Log in
           </v-btn>
           <v-btn @click="clear">
@@ -126,6 +126,12 @@ export default {
         const res = await this.$store.dispatch("auth/signIn", { ...params });
         // this.$router.push('/dashboard/')だとlayout/default.vueのmethodsが実行されず
         // sign_inボタンがsign in後のページでも残るのでlocation.replaceを使っています
+        if (res.user.activated === false) {
+          let message = "Account not activated. ";
+          message += "Check your email for the activation link.";
+          this.$toast.warning(message);
+          location.replace("/home");
+        }
         if (localStorage.forwardingPath) {
           location.replace(this.$cookies.get("forwardingPath"));
         } else {
