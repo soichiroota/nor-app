@@ -140,7 +140,7 @@ export default {
           email: this.email,
           password: this.password,
           password_confirmation: this.passwordConfirmation,
-          url: process.env.baseUrl
+          url: window.location.origin
         }
       };
       await this.createUser(params);
