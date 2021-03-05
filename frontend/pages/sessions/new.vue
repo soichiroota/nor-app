@@ -26,6 +26,7 @@
             @blur="$v.password.$touch()"
             @click:append="showPassword = !showPassword"
           />
+          <a href="/passwordResets/new">(forgot password)</a>
           <v-checkbox
             v-model="idSaving"
             label="Remember me on this computer"

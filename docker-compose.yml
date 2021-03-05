@@ -53,6 +53,7 @@ services:
         ipv4_address: '172.20.0.4'
     environment:
       - API_URL=http://host.docker.internal:5000
+      - BASE_URL=http://localhost:3000
 
 networks:
   app_net:

@@ -11,8 +11,12 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/user_mailer/password_reset
+  # Test reset link is http://localhost:3000/passwordResets/example%40railstutorial.org/{reset_digest}/edit
   def password_reset
-    UserMailer.password_reset
+    user = User.first
+    user.reset_token = User.new_random_token
+    redirected = "http://localhost:3000"
+    UserMailer.password_reset(user, redirected, true)
   end
 
 end

@@ -12,14 +12,17 @@ export default async ({ app, route, redirect, store }) => {
       "/home",
       "/help",
       "/about",
-      "/contact"
+      "/contact",
+      "/passwordResets/new"
     ];
     const usersShowRe = /^\/users\/\d+\/show$/g;
-    const accountActivationsEditRe = /^\/accountActivations\/.+\/[0-9a-zA-Z]+\/edit/g;
+    const accountActivationsEditRe = /^\/accountActivations\/.+\/.+\/edit/g;
+    const passwordResetsEditRe = /^\/passwordResets\/.+\/.+\/edit/g;
     return (
       publicPaths.includes(path) ||
       usersShowRe.test(path) ||
-      accountActivationsEditRe.test(path)
+      accountActivationsEditRe.test(path) ||
+      passwordResetsEditRe.test(path)
     );
   }
 

@@ -25,5 +25,16 @@ export const actions = {
     this.$cookies.set("token", token);
     commit("setCurrentUser", { user });
     return response;
+  },
+  async createPasswordReset({}, { email, url }) {
+    const endpoint = "api/v1/password_resets";
+    const payload = {
+      password_reset: {
+        email: email,
+        url: url
+      }
+    };
+    const response = await this.$axios.$post(endpoint, payload);
+    return response;
   }
 };
