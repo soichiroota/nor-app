@@ -82,6 +82,11 @@ GEM
     excon (0.79.0)
     faker (2.16.0)
       i18n (>= 1.6, < 2)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.12.2)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -400,6 +405,7 @@ DEPENDENCIES
   faker
   fog (= 1.42)
   kaminari
+  factory_bot_rails
   listen (>= 3.0.5, < 3.2)
   mini_magick (= 4.7.0)
   mysql2 (>= 0.4.4)
