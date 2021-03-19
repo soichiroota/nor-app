@@ -3,7 +3,7 @@ module Api
     class PasswordResetsController < ApplicationController
       skip_before_action :authenticate!, only: [:create, :update]
       skip_before_action :verify_authenticity_token, only: [:create, :update]
-      before_action :get_user,   only: [:update]
+      before_action :get_user, only: [:update]
 
       def create
         @user = User.find_by(email: params[:password_reset][:email].downcase)
@@ -19,11 +19,9 @@ module Api
       def update
         if !valid_user
           render json: { user: nil, errors: nil, token: nil }
-        end
-        if check_expiration
+        elsif check_expiration
           render json: { user: nil, errors: ["Password reset has expired."], token: nil}
-        end
-        if params[:user][:password].empty?
+        elsif params[:user][:password].empty?
           @user.errors.add(:password, :blank)
           render json: { user: nil, errors: @user.errors.full_messages, token: nil }
         elsif @user.update_attributes(user_params)
