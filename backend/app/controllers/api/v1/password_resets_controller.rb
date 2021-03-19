@@ -3,7 +3,7 @@ module Api
     class PasswordResetsController < ApplicationController
       skip_before_action :authenticate!, only: [:create, :update]
       skip_before_action :verify_authenticity_token, only: [:create, :update]
-      before_action :get_user,   only: [:update]
+      before_action :get_user, only: [:update]
 
       def create
         @user = User.find_by(email: params[:password_reset][:email].downcase)
