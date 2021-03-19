@@ -6,7 +6,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
     outcome = User::SignIn.run(params)
     if outcome.valid?
       @user = outcome.result
-      if user.activated?
+      if @user.activated?
         message = "User: #{@user.id} has successfully logged in."
         Rails.logger.info(message)
 

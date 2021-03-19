@@ -28,7 +28,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["@/plugins/axios"],
+  plugins: ["@/plugins/axios", "@/plugins/vue-time-ago"],
   /*
    ** Nuxt.js dev-modules
    */

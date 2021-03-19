@@ -1,24 +1,59 @@
 <template>
-  <v-container>
-    <div>
+  <v-row>
+    <v-col>
       <h1>
         <img :src="gravatarUrl" :alt="userName" class="gravatar" />
         {{ userName }}
       </h1>
-    </div>
-  </v-container>
+    </v-col>
+    <v-col>
+      <div v-if="microposts.length">
+        <h3>Microposts ({{ microposts.length }})</h3>
+        <ul
+          class="microposts"
+          v-for="micropost in microposts"
+          :key="micropost.id"
+        >
+          <Micropost :micropost="micropost" :user="user" />
+        </ul>
+
+        <div class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="pages"
+            :total-visible="7"
+            @click="getUser"
+          />
+        </div>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Micropost from "@/components/microposts/Micropost";
 
 export default {
+  components: {
+    Micropost
+  },
   data() {
     return {
-      gravatarUrlSize: 80
+      gravatarUrlSize: 80,
+      page: 1,
+      pages: 1,
+      microposts: [],
+      timeAgo: null
     };
   },
-  methods: {},
+  methods: {
+    async getUser(page) {
+      return await this.$axios.$get(
+        `/api/v1/users/${this.$route.params.id}?page=${page}`
+      );
+    }
+  },
   head() {
     return {
       title: this.title
@@ -56,8 +91,17 @@ export default {
       }
     }
   },
+  watch: {
+    async page() {
+      const response = await this.getUser(this.page);
+      this.microposts = JSON.parse(response.microposts);
+    }
+  },
   async fetch() {
     await this.$store.dispatch("users/fetchUser", this.$route.params.id);
+    const response = await this.getUser(this.page);
+    this.microposts = JSON.parse(response.microposts);
+    this.pages = response.pages;
   }
 };
 </script>

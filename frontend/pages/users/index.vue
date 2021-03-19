@@ -34,7 +34,6 @@ export default {
       title: "All users"
     };
   },
-
   data() {
     return {
       page: 1,

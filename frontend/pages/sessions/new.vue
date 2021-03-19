@@ -34,7 +34,7 @@
             @blur="$v.idSaving.$touch()"
           />
 
-          <v-btn class="mr-4" click="login">
+          <v-btn class="mr-4" @click="login">
             Log in
           </v-btn>
           <v-btn @click="clear">

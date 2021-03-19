@@ -55,4 +55,9 @@ class Api::V1::ApplicationController < ApplicationController
   def render_unauthorized
     render json: { messages: ['token invalid!'] }, status: :unauthorized
   end
+
+  # ユーザーがログインしていればtrue、その他ならfalseを返す
+  def logged_in?
+    !current_user.nil?
+  end
 end

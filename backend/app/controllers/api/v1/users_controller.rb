@@ -12,7 +12,8 @@ module Api
       end
 
       def show
-        render json: @user.to_json
+        @microposts = @user.microposts.paginate(page: params[:page])
+        render json: { user: @user.to_json, microposts: @microposts.to_json, pages: @microposts.total_pages }
       end
 
       def create
