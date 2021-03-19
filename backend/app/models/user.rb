@@ -10,6 +10,5 @@ class User < ApplicationRecord
     format: {
         with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}+\z/i,
         message: 'は英数6文字以上で指定してください。'
-    },
-    allow_blank: true
+    }
 end
