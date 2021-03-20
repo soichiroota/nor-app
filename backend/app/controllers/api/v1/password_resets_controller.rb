@@ -19,11 +19,9 @@ module Api
       def update
         if !valid_user
           render json: { user: nil, errors: nil, token: nil }
-        end
-        if check_expiration
+        elsif check_expiration
           render json: { user: nil, errors: ["Password reset has expired."], token: nil}
-        end
-        if params[:user][:password].empty?
+        elsif params[:user][:password].empty?
           @user.errors.add(:password, :blank)
           render json: { user: nil, errors: @user.errors.full_messages, token: nil }
         elsif @user.update_attributes(user_params)

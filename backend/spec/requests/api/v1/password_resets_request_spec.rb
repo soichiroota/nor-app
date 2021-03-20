@@ -68,5 +68,45 @@ RSpec.describe "PasswordResets", type: :request do
         end
       end
     end
+
+    # 有効なパスワードとパスワード確認
+    context "when user sends correct password" do
+        before do
+          patch api_v1_password_reset_path(user.reset_token),
+                params: {
+                  user: {
+                    email: user.email,
+                    password: "foobaz0",
+                    password_confirmation: "foobaz0",
+                  },
+                }
+        end
+  
+        it 'fails' do
+          aggregate_failures do
+            expect(user.reload.reset_digest).to eq nil
+          end
+        end
+      end
+  end
+
+  describe "def check_expiration" do
+    context "when user updates after 3 hours" do
+      before do
+        user.update_attribute(:reset_sent_at, 3.hours.ago)
+        patch api_v1_password_reset_path(user.reset_token),
+              params: {
+                user: {
+                  email: user.email,
+                  password: "foobar",
+                  password_confirmation: "foobar",
+                },
+              }
+      end
+
+      it "fails" do
+        expect(response).to have_http_status(200)
+      end
+    end
   end
 end
