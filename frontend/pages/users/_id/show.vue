@@ -7,6 +7,9 @@
       </h1>
     </v-col>
     <v-col>
+      <div v-if="currentUser">
+        <FollowForm :user="user" />
+      </div>
       <div v-if="microposts.length">
         <h3>Microposts ({{ microposts.length }})</h3>
         <ul
@@ -33,10 +36,12 @@
 <script>
 import { mapGetters } from "vuex";
 import Micropost from "@/components/microposts/Micropost";
+import FollowForm from "@/components/users/FollowForm";
 
 export default {
   components: {
-    Micropost
+    Micropost,
+    FollowForm
   },
   data() {
     return {

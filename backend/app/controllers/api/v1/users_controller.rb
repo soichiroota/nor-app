@@ -13,7 +13,18 @@ module Api
 
       def show
         @microposts = @user.microposts.paginate(page: params[:page])
-        render json: { user: @user.to_json, microposts: @microposts.to_json, pages: @microposts.total_pages }
+        render json: { 
+          user: @user.to_json(
+            :methods => [:microposts_count, :following_count, :followers_count],
+            :include => { 
+              :following => { :only => :id },
+              :followers => { :only => :id },
+              :passive_relationships => { :only => [:id, :followed_id, :follower_id] }
+            }
+          ),
+          microposts: @microposts.to_json,
+          pages: @microposts.total_pages
+        }
       end
 
       def create
@@ -40,6 +51,30 @@ module Api
         render json: { status: :unprocessable_entity } unless current_user.admin?
         @user.destroy
         render json: @user.to_json 
+      end
+
+      def following
+        @user  = User.find(params[:id])
+        @users = @user.following.paginate(page: params[:page])
+        render json: {
+          user: @user.to_json(
+            :methods => [:microposts_count]
+          ),
+          users: @users.to_json,
+          pages: @users.total_pages
+        }
+      end
+    
+      def followers
+        @user  = User.find(params[:id])
+        @users = @user.followers.paginate(page: params[:page])
+        render json: {
+          user: @user.to_json(
+            :methods => [:microposts_count]
+          ),
+          users: @users.to_json,
+          pages: @users.total_pages
+        }
       end
 
       private

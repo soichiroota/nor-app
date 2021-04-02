@@ -5,7 +5,15 @@ module Api
                 if logged_in?
                     @feed_items = current_user.feed.paginate(page: params[:page])
                     render json: {
-                        feed_items: @feed_items.to_json,
+                        feed_items: @feed_items.to_json(
+                            :include => { 
+                                :user => { 
+                                    :only => [
+                                        :id, :email, :name
+                                    ]
+                                }
+                            }
+                        ),
                         pages: @feed_items.total_pages,
                         total_feeds: current_user.feed.count
                     }

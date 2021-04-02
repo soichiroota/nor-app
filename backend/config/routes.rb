@@ -6,13 +6,18 @@ Rails.application.routes.draw do
       resources :tasks, only: :index
       get :health_check, to: 'health_check#index'
       post '/signup',  to: 'users#create'
-      resources :users
+      resources :users do
+        member do
+          get :following, :followers
+        end
+      end
       post   '/login',   to: 'sessions#create'
       get 'token_current_user', to: 'sessions#token_current_user'
       get 'authencity_token', to: 'authencity_tokens#create'
       resources :account_activations, only: [:edit]
       resources :password_resets,     only: [:create, :update]
       resources :microposts,          only: [:create, :destroy]
+      resources :relationships,       only: [:create, :destroy]
     end
   end
 end

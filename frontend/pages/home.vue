@@ -6,6 +6,9 @@
           <section class="user_info">
             <UserInfo :user="currentUser" :micropostsLength="feedItemsLength" />
           </section>
+          <section class="stats">
+            <Stats :user="currentUser" />
+          </section>
           <section class="micropost_form">
             <Errors :errors="errors" />
             <form @submit.prevent="submit">
@@ -58,6 +61,7 @@
 <script>
 import { mapGetters } from "vuex";
 import UserInfo from "@/components/shared/UserInfo";
+import Stats from "@/components/shared/Stats";
 import Feed from "@/components/shared/Feed";
 import Errors from "@/components/shared/ErrorMessages";
 
@@ -65,7 +69,8 @@ export default {
   components: {
     UserInfo,
     Feed,
-    Errors
+    Errors,
+    Stats
   },
   head() {
     return {

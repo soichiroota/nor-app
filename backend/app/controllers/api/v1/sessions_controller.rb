@@ -12,11 +12,13 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 
         render json: {
           token: @user.token,
-          user: user_secure_column}
+          user: user_secure_column
+        }
       else
         render json: {
           token: nil,
-          user: user_secure_column}
+          user: user_secure_column
+        }
       end
     else
       render json: { messages: outcome.errors.full_messages }, status: :unauthorized
@@ -32,6 +34,9 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
   private
 
   def user_secure_column
-    @user.as_json(except: [:created_at, :updated_at, :token, :password_digest])
+    @user.as_json(
+      except: [:created_at, :updated_at, :token, :password_digest],
+      :methods => [:following_count, :followers_count]
+    )
   end
 end

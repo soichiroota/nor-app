@@ -21,7 +21,7 @@ export const actions = {
     };
     const response = await this.$axios.$post(endpoint, payload);
     const token = response.token;
-    const user = response.user;
+    let user = response.user;
     this.$cookies.set("token", token);
     commit("setCurrentUser", { user });
     return response;

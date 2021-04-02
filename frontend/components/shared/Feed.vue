@@ -2,7 +2,7 @@
   <div>
     <div v-if="feedItems">
       <ul class="microposts" v-for="micropost in feedItems" :key="micropost.id">
-        <Micropost :micropost="micropost" :user="user" />
+        <Micropost :micropost="micropost" :user="micropost.user" />
       </ul>
       <div class="text-center">
         <v-pagination
