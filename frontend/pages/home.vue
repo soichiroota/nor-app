@@ -12,7 +12,7 @@
       </a>
     </div>
     <a href="http://rubyonrails.org/">
-      <img src="~/assets/rails.png" alt="Rails logo"/>
+      <img src="~/assets/rails.png" alt="Rails logo" />
     </a>
     <!--<img src="~/assets/kitten.jpg" alt="Kitten"/>-->
   </v-container>
@@ -22,11 +22,10 @@
 export default {
   head() {
     return {
-      title: 'Home'
-    }
+      title: "Home"
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

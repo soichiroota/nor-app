@@ -1,8 +1,8 @@
 <template>
-<div>
-  <Errors :errors="errors"/>
-  <h1>Log in</h1>
-  <v-row>
+  <div>
+    <Errors :errors="errors" />
+    <h1>Log in</h1>
+    <v-row>
       <v-col>
           <form @submit.prevent="login">
               <v-text-field
@@ -33,26 +33,23 @@
                 @blur="$v.idSaving.$touch()"
               ></v-checkbox>
 
-              <v-btn
-              class="mr-4"
-              @click="login"
-              >
-              Log in
-              </v-btn>
-              <v-btn @click="clear">
-              clear
-              </v-btn>
-          </form>
+          <v-btn class="mr-4" @click="login">
+            Log in
+          </v-btn>
+          <v-btn @click="clear">
+            clear
+          </v-btn>
+        </form>
       </v-col>
-  </v-row>
-  <p>New user? <a href="/users/new">Sign up now!</a></p>
-</div>
+    </v-row>
+    <p>New user? <a href="/users/new">Sign up now!</a></p>
+  </div>
 </template>
 
 <script>
-  import Errors from '@/components/shared/ErrorMessages'
-  import { validationMixin } from 'vuelidate'
-  import { required, email } from 'vuelidate/lib/validators'
+import Errors from "@/components/shared/ErrorMessages";
+import { validationMixin } from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
 
   export default {
     mixins: [validationMixin],
@@ -65,13 +62,31 @@
         },
       },
     },
-    components: {
-      Errors
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.password && errors.push("Must be valid password");
+      !this.$v.password.required && errors.push("Password is required");
+      return errors;
+    }
+  },
+  asyncData() {
+    return {
+      errors: []
+    };
+  },
+  mounted() {
+    this.getSignInIds();
+  },
+  methods: {
+    clear() {
+      this.$v.$reset();
+      this.email = "";
+      this.password = "";
+      this.idSaving = false;
     },
-    asyncData() {
-      return {
-        errors: [],
-      }
+    getSignInIds() {
+      this.email = localStorage.email;
     },
     data () {
       return {
@@ -138,14 +153,12 @@
           }
         }
       }
-    },
-    head() {
-        return {
-            title: 'Log in'
-        }
-    },
-    mounted() {
-      this.getSignInIds()
-    },
+    }
+  },
+  head() {
+    return {
+      title: "Log in"
+    };
   }
+};
 </script>

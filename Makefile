@@ -22,6 +22,8 @@ back-bash:
 	docker-compose exec backend bash
 front-bash:
 	docker-compose exec frontend bash
+lint:
+	docker-compose exec frontend npm run lint
 lint-fix:
 	docker-compose exec frontend npm run lint-fix
 jest:
@@ -53,3 +55,7 @@ rr:
 	docker-compose exec backend bundle exec rails routes
 rt:
 	docker-compose exec backend bundle exec rspec
+rubocop:
+	docker-compose exec backend bundle exec rubocop
+brakeman:
+	docker-compose exec backend bundle exec brakeman

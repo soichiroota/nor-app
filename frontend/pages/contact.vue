@@ -14,11 +14,10 @@
 export default {
   head() {
     return {
-      title: 'Contact'
-    }
+      title: "Contact"
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

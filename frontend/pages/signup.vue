@@ -11,23 +11,22 @@
 export default {
   data() {
     return {
-      subTitle: 'Zenn is good service!!',
-      tasks: [],
-    }
+      subTitle: "Zenn is good service!!",
+      tasks: []
+    };
   },
   methods: {
     async getSomething() {
-      const response = await this.$axios.$get('/api/v1/tasks')
-      this.tasks = JSON.parse(response.tasks)
+      const response = await this.$axios.$get("/api/v1/tasks");
+      this.tasks = JSON.parse(response.tasks);
     }
   },
   head() {
     return {
-      title: 'Sign up'
-    }
+      title: "Sign up"
+    };
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>
