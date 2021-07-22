@@ -54,6 +54,6 @@ rr:
 rt:
 	docker-compose exec backend bundle exec rspec
 rubocop:
-	docker-compose run backend bundle exec rubocop
+	docker-compose exec backend bundle exec rubocop
 brakeman:
-	docker-compose run backend bundle exec brakeman
+	docker-compose exec backend bundle exec brakeman
