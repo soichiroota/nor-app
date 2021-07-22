@@ -53,3 +53,5 @@ rr:
 	docker-compose exec backend bundle exec rails routes
 rt:
 	docker-compose exec backend bundle exec rspec
+rubocop:
+	docker-compose run backend bundle exec rubocop
