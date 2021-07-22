@@ -13,7 +13,7 @@ class Api::V1::ApplicationController < ApplicationController
     # https://qiita.com/Yarimizu14/items/c81a8cf1859f954b953e
     # Authorization: Token xxx, Authorization: Bearer xxx どちらでもいけます。
     # 返り値 認証成功: true, 認証失敗: false
-    authenticate_with_http_token do |token, options|
+    authenticate_with_http_token do |token, _options|
       self.token = token
 
       @current_user = User.find_by(token: token)
