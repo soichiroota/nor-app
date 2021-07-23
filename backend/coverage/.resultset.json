@@ -49,6 +49,7 @@
         "lines": [
           1,
           1,
+          null,
           null
         ]
       },
@@ -689,6 +690,26 @@
         }
       }
     },
+<<<<<<< HEAD
     "timestamp": 1626996637
+=======
+<<<<<<< HEAD
+    "timestamp": 1626996267
+=======
+<<<<<<< HEAD
+    "timestamp": 1626993817
+=======
+<<<<<<< HEAD
+    "timestamp": 1626992087
+=======
+<<<<<<< HEAD
+    "timestamp": 1626937821
+=======
+    "timestamp": 1627081514
+>>>>>>> boilerplate
+>>>>>>> basic-login
+>>>>>>> advanced-login
+>>>>>>> updating-users
+>>>>>>> account-activation
   }
 }
