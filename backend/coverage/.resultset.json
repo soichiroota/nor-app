@@ -49,6 +49,7 @@
         "lines": [
           1,
           1,
+<<<<<<< HEAD
           15,
           1,
           1,
@@ -62,6 +63,8 @@
           12,
           0,
           null,
+=======
+>>>>>>> password-reset
           null,
           null
         ]
@@ -845,6 +848,30 @@
         }
       }
     },
+<<<<<<< HEAD
     "timestamp": 1627000102
+=======
+<<<<<<< HEAD
+    "timestamp": 1626996637
+=======
+<<<<<<< HEAD
+    "timestamp": 1626996267
+=======
+<<<<<<< HEAD
+    "timestamp": 1626993817
+=======
+<<<<<<< HEAD
+    "timestamp": 1626992087
+=======
+<<<<<<< HEAD
+    "timestamp": 1626937821
+=======
+    "timestamp": 1627081514
+>>>>>>> boilerplate
+>>>>>>> basic-login
+>>>>>>> advanced-login
+>>>>>>> updating-users
+>>>>>>> account-activation
+>>>>>>> password-reset
   }
 }
