@@ -28,3 +28,6 @@
 
 # アップロードされたテスト画像を無視する
 /public/uploads
+
+# Ignore simplecov output files.
+/coverage/*
