@@ -55,6 +55,8 @@ rr:
 	docker-compose exec backend bundle exec rails routes
 rt:
 	docker-compose exec backend bundle exec rspec
+guard:
+	docker-compose exec backend bundle exec guard
 rubocop:
 	docker-compose exec backend bundle exec rubocop
 brakeman:
