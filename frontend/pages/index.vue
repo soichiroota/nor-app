@@ -11,8 +11,7 @@
         <button @click="getSomething">
           タスク取得
         </button>
-        <ul v-for="task in tasks"
-:key="task.id">
+        <ul v-for="task in tasks" :key="task.id">
           <li style="text-align: left;">
             {{ task.title }}
           </li>
